@@ -10,17 +10,37 @@
     <div class="container">
         <ul></ul>
         <div class="row" id="header">
-            <div class="col-lg-6 col-md-5 col-sm-3 col-xs-2">
-                <button class="btn btn-primary" type="button" id="create-dvd-button" onclick="hideDVDTable()">
+            <div class="col-lg-6
+                        col-md-5
+                        col-sm-3
+                        col-xs-2">
+                <button class="btn btn-primary"
+                        type="button"
+                        id="create-dvd-button"
+                        onclick="hideDVDTable()">
                     Create DVD
                 </button>
             </div>
-            <div class="col-lg-6 col-md-7 col-sm-9 col-xs-10">
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    <button class="btn btn-primary" type="button" id="search-button">Search</button>
+            <div class="col-lg-6
+                        col-md-7
+                        col-sm-9
+                        col-xs-10">
+                <div class="col-lg-2
+                            col-md-2
+                            col-sm-2
+                            col-xs-2">
+                    <button class="btn btn-primary"
+                            type="button"
+                            id="search-button">Search</button>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
-                    <select class="form-control" id="searchCategory" placeholder="Search Category">
+                <div class="col-lg-4
+                            col-md-4
+                            col-sm-4
+                            col-xs-5">
+                    <select required 
+                            class="form-control"
+                            id="searchCategory"
+                            placeholder="Search Category">
                         <option value="" selected disabled="true">Search Category</option>
                         <option value="title">Title</option>
                         <option value="year">Release Year</option>
@@ -28,19 +48,29 @@
                         <option value="rating">Rating</option>
                     </select>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-5">
+                <div class="col-lg-6
+                            col-md-6
+                            col-sm-6
+                            col-xs-5">
                     <form>
                         <div class="form-group">
-                            <input type="email" class="form-control" id="search" placeholder="Search Term">
+                            <input required 
+                                   type="text" 
+                                   class="form-control" 
+                                   id="search" 
+                                   placeholder="Search Term">
                         </div>
                     </form>
                 </div>
             </div>
         </div>
         <hr/>
-        <ul class="list-group" id="errorMessages"></ul>
+        <ul class="list-group" 
+            id="errorMessages">
+        </ul>
         <div id="DVDTableDiv">
-            <table id="DVDTable" class="table table-hover">
+            <table id="DVDTable"
+                   class="table table-hover">
                 <tr>
                     <th width="30%">Title</th>
                     <th width="20%">Release Date</th>
@@ -51,31 +81,51 @@
                 <tbody id="DVDTableRows"></tbody>
             </table>
         </div>
-        <div id="createDVDForms" style="display: none;">
+        <div id="createDVDForms"
+             style="display: none;">
             <h1>Create DVD</h1>
             <hr/>
             <form>
                 <div class="form-group row">
-                    <label for="title" class="col-md-2 col-sm-2 col-form-label">DVD Title</label>
+                    <label for="title"
+                           class="col-md-2
+                                  col-sm-2
+                                  col-form-label">DVD Title</label>
                     <div class="col">
-                        <input type="text" class="form-control-plaintext" id="title">
+                        <input type="text"
+                               class="form-control-plaintext"
+                               id="title">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="releaseYear" class="col-md-2 col-sm-2 col-form-label">Release Year</label>
+                    <label for="releaseYear"
+                           class="col-md-2 
+                                  col-sm-2
+                                  col-form-label">Release Year</label>
                     <div class="col">
-                        <input type="number" class="form-control-plaintext" id="releaseYear">
+                        <input type="number" 
+                               class="form-control-plaintext"
+                               id="releaseYear">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="director" class="col-md-2 col-sm-2 col-form-label">Director</label>
+                    <label for="director" 
+                           class="col-md-2 
+                                  col-sm-2
+                                  col-form-label">Director</label>
                     <div class="col">
-                        <input type="text" class="form-control-plaintext" id="director">
+                        <input type="text"
+                               class="form-control-plaintext"
+                               id="director">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="rating" class="col-md-2 col-sm-2 col-form-label">Rating</label>
-                    <select class="custom-select" id="rating">
+                    <label for="rating"
+                           class="col-md-2
+                                  col-sm-2
+                                  col-form-label">Rating</label>
+                    <select class="custom-select"
+                            id="rating">
                         <option>G</option>
                         <option>PG</option>
                         <option>PG-13</option>
@@ -83,17 +133,27 @@
                     </select>
                 </div>
                 <div class="form-group row">
-                    <label for="notes" class="col-md-2 col-sm-2 col-form-label">Notes</label>
-                    <textarea class="form-control-plaintext" id="notes"></textarea>
+                    <label for="notes"
+                           class="col-md-2 
+                                  col-sm-2
+                                  col-form-label">Notes</label>
+                    <textarea class="form-control-plaintext"
+                              id="notes"></textarea>
                 </div>
                 <div class="row">
-                    <div class="col-md-2 col-sm-2">
-                        <button class="btn btn-primary" type="button" id="cancel-create" onclick="hideDVDCreate()">
+                    <div class="col-md-2
+                                col-sm-2">
+                        <button class="btn btn-primary"
+                                type="button"
+                                id="cancel-create"
+                                onclick="hideDVDCreate()">
                             Cancel
                         </button>
                     </div>
                     <div class="col">
-                        <button class="btn btn-primary" type="button" id="create-dvd">
+                        <button class="btn btn-primary" 
+                                type="button"
+                                id="create-dvd">
                             Save Changes
                         </button>
                     </div>

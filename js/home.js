@@ -73,8 +73,6 @@ function loadDVDList() {
   });
 }
 
-
-
 function hideDVDCreate() {
   $("#createDVDForms").hide();
   showDVDTable();
