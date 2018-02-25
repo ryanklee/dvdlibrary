@@ -1,6 +1,10 @@
 $(document).ready(function () {
   loadDVDList();
 
+  var createDvdButton = document.getElementById("create-dvd-button");
+
+  createDvdButton.addEventListener("click", hideDVDTable, false);
+
   $('#create-dvd').click(function (event) {
 
     $.ajax({
