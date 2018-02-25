@@ -1,9 +1,8 @@
 $(document).ready(function () {
   loadDVDList();
 
-  var createDvdButton = document.getElementById("create-dvd-button");
-
-  createDvdButton.addEventListener("click", hideDVDTable, false);
+  $('#create-dvd-button').click(hideDVDTable);
+  $('#cancel-forms').click(hideDvdForms);
 
   $('#create-dvd').click(function (event) {
 
@@ -31,7 +30,7 @@ $(document).ready(function () {
         $('#notes').val('');
         $('#DVDTableRows').empty();
         loadDVDList();
-        hideDVDCreate();
+        hideDvdForms();
       },
       error: function () {
         $('#errorMessages')
@@ -76,8 +75,8 @@ $(document).ready(function () {
     });
   }
   
-  function hideDVDCreate() {
-    $("#createDVDForms").hide();
+  function hideDvdForms() {
+    $("#dvd-forms").hide();
     showDVDTable();
     $("#header").show();
   }
@@ -85,7 +84,7 @@ $(document).ready(function () {
   function hideDVDTable() {
     $("#DVDTableDiv").hide();
     $("#header").hide();
-    $("#createDVDForms").show();
+    $("#dvd-forms").show();
   }
   
   function showDVDTable() {
