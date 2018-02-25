@@ -65,10 +65,10 @@
         </div>
         <hr/>
         <ul class="list-group" 
-            id="errorMessages">
+            id="error-messages">
         </ul>
-        <div id="DVDTableDiv">
-            <table id="DVDTable"
+        <div id="dvd-table-div">
+            <table id="dvd-table"
                    class="table table-hover">
                 <tr>
                     <th width="30%">Title</th>
@@ -77,12 +77,12 @@
                     <th width="15%">Rating</th>
                     <th width="15%"></th>
                 </tr>
-                <tbody id="DVDTableRows"></tbody>
+                <tbody id="dvd-table-rows"></tbody>
             </table>
         </div>
         <div id="dvd-forms"
              style="display: none;">
-            <h1>Create DVD</h1>
+            <h1 id="dvd-form-head"></h1>
             <hr/>
             <form>
                 <div class="form-group row">
@@ -102,9 +102,9 @@
                                   col-sm-2
                                   col-form-label">Release Year</label>
                     <div class="col">
-                        <input type="number" 
+                        <input type="text" 
                                class="form-control-plaintext"
-                               id="releaseYear">
+                               id="release-year">
                     </div>
                 </div>
                 <div class="form-group row">

@@ -1,9 +1,6 @@
 $(document).ready(function () {
   loadDVDList();
 
-  $('#create-dvd-button').click(hideDVDTable);
-  $('#cancel-forms').click(hideDvdForms);
-
   $('#create-dvd').click(function (event) {
 
     $.ajax({
@@ -22,13 +19,7 @@ $(document).ready(function () {
       },
       'dataType': 'json',
       success: function () {
-        $('#errorMessages').empty();
-        $('#title').val('');
-        $('#releaseYear').val('');
-        $('#director').val('');
-        $('#rating').val('');
-        $('#notes').val('');
-        $('#DVDTableRows').empty();
+        clearDvdForms();
         loadDVDList();
         hideDvdForms();
       },
@@ -42,7 +33,7 @@ $(document).ready(function () {
   });
 
   function loadDVDList() {
-    var DVDTableRows = $('#DVDTableRows');
+    var DvdTableRows = $('#dvd-table-rows');
   
     $.ajax({
       type: 'GET',
@@ -54,16 +45,21 @@ $(document).ready(function () {
           var releaseYear = dvd.realeaseYear;
           var director = dvd.director;
           var rating = dvd.rating;
+          var id = dvd.id;
   
           var row = '<tr>';
           row += '<td>' + title + '</td>';
           row += '<td>' + releaseYear + '</td>';
           row += '<td>' + director + '</td>';
           row += '<td>' + rating + '</td>';
-          row += '<td><a>Edit</a> | <a>Delete</a></td>';
+          row += '<td>';
+          row += '<button type="button" class="btn btn-primary btn-sm" onClick="editDvd()">Edit</button>';
+          row += '<button type="button" class="btn btn-primary btn-sm">Delete</button>';
+          row += `<input type="hidden" value="${id}">`
+          row += '</td>';
           row += '</tr>';
   
-          DVDTableRows.append(row);
+          DvdTableRows.append(row);
         });
       },
       error: function () {
@@ -74,22 +70,42 @@ $(document).ready(function () {
       }
     });
   }
-  
-  function hideDvdForms() {
-    $("#dvd-forms").hide();
-    showDVDTable();
-    $("#header").show();
-  }
-  
-  function hideDVDTable() {
-    $("#DVDTableDiv").hide();
-    $("#header").hide();
-    $("#dvd-forms").show();
-  }
-  
-  function showDVDTable() {
-    $("#DVDTableDiv").show();
-  }
-  
+
+  $('#create-dvd-button').click(function(event){
+    $('#dvd-form-head').html("Create Dvd");
+    focusDvdForm();
+  });
+
+  $('#cancel-forms').click(focusDvdTable);
 });
 
+function editDvd(){
+  $('#dvd-form-head').html("Edit Dvd");
+  focusDvdForm();
+}
+
+function hideDvdForms() {
+  clearDvdForms();
+  $("#dvd-forms").hide();
+  $("#header").show();
+}
+
+function focusDvdForm() {
+  $("#dvd-table-div").hide();
+  $("#header").hide();
+  $("#dvd-forms").show();
+}
+
+function focusDvdTable() {
+  $("#dvd-table-div").show();
+  hideDvdForms();
+}
+
+function clearDvdForms() {
+  $('#error-messages').empty();
+  $('#title').val('');
+  $('#release-year').val('');
+  $('#director').val('');
+  $('#rating').val('');
+  $('#notes').val('');
+}
