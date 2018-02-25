@@ -53,9 +53,9 @@ $(document).ready(function () {
           row += '<td>' + director + '</td>';
           row += '<td>' + rating + '</td>';
           row += '<td>';
-          row += '<button type="button" class="btn btn-primary btn-sm" onClick="editDvd()">Edit</button>';
+          row += `<button type="button" class="btn btn-primary btn-sm" onClick="editDvd(${$("#dvd-id")})">Edit</button>`;
           row += '<button type="button" class="btn btn-primary btn-sm">Delete</button>';
-          row += `<input type="hidden" value="${id}">`
+          row += `<input id="dvd-id" type="hidden" value="${id}">`
           row += '</td>';
           row += '</tr>';
   
@@ -79,9 +79,11 @@ $(document).ready(function () {
   $('#cancel-forms').click(focusDvdTable);
 });
 
-function editDvd(){
+function editDvd(dvdId){
   $('#dvd-form-head').html("Edit Dvd");
   focusDvdForm();
+
+  $
 }
 
 function hideDvdForms() {
