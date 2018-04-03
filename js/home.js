@@ -45,7 +45,6 @@ $(document).ready(function () {
           var releaseYear = dvd.realeaseYear;
           var director = dvd.director;
           var rating = dvd.rating;
-          var id = dvd.id;
   
           var row = '<tr>';
           row += '<td>' + title + '</td>';
@@ -53,7 +52,7 @@ $(document).ready(function () {
           row += '<td>' + director + '</td>';
           row += '<td>' + rating + '</td>';
           row += '<td>';
-          row += `<button type="button" class="btn btn-primary btn-sm" onClick="editDvd(${$("#dvd-id")})">Edit</button>`;
+          row += `<button type="button" class="btn btn-primary btn-sm" onClick="editDvd(${dvd.id})")>Edit</button>`;
           row += '<button type="button" class="btn btn-primary btn-sm">Delete</button>';
           row += `<input id="dvd-id" type="hidden" value="${id}">`
           row += '</td>';
@@ -82,8 +81,6 @@ $(document).ready(function () {
 function editDvd(dvdId){
   $('#dvd-form-head').html("Edit Dvd");
   focusDvdForm();
-
-  $
 }
 
 function hideDvdForms() {
