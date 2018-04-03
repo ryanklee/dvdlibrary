@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  loadDVDList();
+  populateDvdTable();
 
   $('#create-dvd').click(function (event) {
 
@@ -20,7 +20,7 @@ $(document).ready(function () {
       'dataType': 'json',
       success: function () {
         clearDvdForms();
-        loadDVDList();
+        populateDvdTable();
         hideDvdForms();
       },
       error: function () {
@@ -32,7 +32,7 @@ $(document).ready(function () {
     })
   });
 
-  function loadDVDList() {
+  function populateDvdTable() {
     var DvdTableRows = $('#dvd-table-rows');
   
     $.ajax({
