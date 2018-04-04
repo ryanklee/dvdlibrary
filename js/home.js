@@ -1,10 +1,13 @@
 $(document).ready(function () {
   populateDvdTable();
-  $('#create-dvd').click(saveDvdForm);
-  $('#cancel-forms').click(focusDvdTable);
+  $('#add-dvd').click(addDvdForm);
+  $('#edit-dvd').click(editDvdForm);
+  $('#add-cancel-forms').click(focusDvdTable);
+  $('#edit-cancel-forms').click(focusDvdTable);
 });
 
 function populateDvdTable() {
+  $('#dvd-table-rows').empty();
   var DvdTableRows = $('#dvd-table-rows');
   $.ajax({
     type: 'GET',
@@ -24,8 +27,8 @@ function populateDvdTable() {
         row += '<td>' + director + '</td>';
         row += '<td>' + rating + '</td>';
         row += '<td>';
-        row += `<button type="button" class="btn btn-primary btn-sm" onClick="editDvd(${id})")>Edit</button>`;
-        row += '<button type="button" class="btn btn-primary btn-sm">Delete</button>';
+        row += `<button type="button" class="btn btn-primary btn-sm" onClick="populateDvdEditForm(${id})")>Edit</button>`;
+        row += `<button type="button" class="btn btn-primary btn-sm" onClick="deleteDvd(${id})")>Delete</button>`;
         row += '</td>';
         row += '</tr>';
 
@@ -41,17 +44,35 @@ function populateDvdTable() {
   });
 }
 
-function saveDvdForm() {
+function deleteDvd(id){
+  $.ajax({
+    type: 'DELETE',
+    url: 'http://localhost:8080/dvd/' + id,
+    success: function (){
+      clearAll();
+      focusDvdTable();
+      populateDvdTable();
+    },
+    error: function () {
+      $('#errorMessages')
+        .append($('<li>')
+          .attr({ class: 'list-group-item list-group-item-danger' })
+          .text('Error calling web service.'));
+    }    
+  });
+}
+
+function addDvdForm() {
 
   $.ajax({
-    type: 'GET',
-    url: 'http://localhost:8080/dvds',
+    type: 'POST',
+    url: 'http://localhost:8080/dvd',
     data: JSON.stringify({
-      title: $('#title').val(),
-      realeaseYear: $('#releaseYear').val(),
-      director: $('#director').val(),
-      rating: $('#rating').val(),
-      notes: $('#notes').val()
+      title: $('#add-title').val(),
+      realeaseYear: $('#add-release-year').val(),
+      director: $('#add-director').val(),
+      rating: $('#add-rating').val(),
+      notes: $('#add-notes').val()
     }),
     headers: {
       'Accept': 'application/json',
@@ -60,8 +81,8 @@ function saveDvdForm() {
     'dataType': 'json',
     success: function () {
       clearAll();
+      focusDvdTable();
       populateDvdTable();
-      hideDvdForms();
     },
     error: function () {
       $('#error-messages')
@@ -72,13 +93,41 @@ function saveDvdForm() {
   })
 }
 
-function editDvd(id) {
-  $('#dvd-form-head').html("Edit Dvd");
-  focusDvdForm();
-  populateDvdEditForm(id);
+function editDvdForm() {
+  
+
+  $.ajax({
+    type: 'PUT',
+    url: 'http://localhost:8080/dvd/' + $('#edit-dvdId').val(),
+    data: JSON.stringify({
+      title: $('#edit-title').val(),
+      realeaseYear: $('#edit-release-year').val(),
+      director: $('#edit-director').val(),
+      rating: $('#edit-rating').val(),
+      notes: $('#edit-notes').val()
+    }),
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    'dataType': 'json',
+    success: function () {
+      clearAll();
+      focusDvdTable();
+      populateDvdTable();
+    },
+    error: function () {
+      $('#error-messages')
+        .append($('<li>')
+          .attr({ class: 'list-group-item list-group-item-danger' })
+          .text('Error calling web service.'));
+    }
+  })
 }
 
 function populateDvdEditForm(id) {
+
+  focusEditDvdForm();
   $.ajax({
     type: 'GET',
     url: 'http://localhost:8080/dvd/' + id,
@@ -88,14 +137,14 @@ function populateDvdEditForm(id) {
       var releaseYear = dvd.realeaseYear;
       var director = dvd.director;
       var rating = dvd.rating;
-      var id = dvd.id;
       var notes = dvd.notes;
 
-      $('#title').val(title);
-      $('#release-year').val(releaseYear);
-      $('#director').val(director);
-      $('#rating').val(rating);
-      $('#notes').val(notes);
+      $('#edit-title').val(title);
+      $('#edit-release-year').val(releaseYear);
+      $('#edit-director').val(director);
+      $('#edit-rating').val(rating);
+      $('#edit-notes').val(notes);
+      $('#edit-dvdId').val(id);
     },
     error: function () {
       $('#errorMessages')
@@ -108,21 +157,26 @@ function populateDvdEditForm(id) {
 
 $('#create-dvd-button').click(function () {
   $('#dvd-form-head').html("Create Dvd");
-  focusDvdForm();
+  focusAddDvdForm();
 });
-
-
 
 function hideDvdForms() {
   clearAll();
-  $("#dvd-forms").hide();
+  $("#add-dvd-forms").hide();
+  $("#edit-dvd-forms").hide();
   $("#header").show();
 }
 
-function focusDvdForm() {
+function focusAddDvdForm() {
   $("#dvd-table-div").hide();
   $("#header").hide();
-  $("#dvd-forms").show();
+  $("#add-dvd-forms").show();
+}
+
+function focusEditDvdForm() {
+  $("#dvd-table-div").hide();
+  $("#header").hide();
+  $("#edit-dvd-forms").show();
 }
 
 function focusDvdTable() {
@@ -132,9 +186,14 @@ function focusDvdTable() {
 
 function clearAll() {
   $('#error-messages').empty();
-  $('#title').val('');
-  $('#release-year').val('');
-  $('#director').val('');
-  $('#rating').val('');
-  $('#notes').val('');
+  $('#add-title').val('');
+  $('#add-release-year').val('');
+  $('#add-director').val('');
+  $('#add-rating').val('');
+  $('#add-notes').val('');
+  $('#edit-title').val('');
+  $('#edit-release-year').val('');
+  $('#edit-director').val('');
+  $('#edit-rating').val('');
+  $('#edit-notes').val('');
 }
